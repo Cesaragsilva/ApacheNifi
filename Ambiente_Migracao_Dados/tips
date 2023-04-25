@@ -1,0 +1,14 @@
+Stop Apache Server on Ubuntu
+## Start command ##
+sudo systemctl start apache2.service
+## Stop command ##
+sudo systemctl stop apache2.service
+## Restart command ##
+sudo systemctl restart apache2.service
+
+## Disable APacher
+sudo update-rc.d apache2 disable
+
+
+Check if Apache Server is Running
+ curl -i http://localhost | grep Server

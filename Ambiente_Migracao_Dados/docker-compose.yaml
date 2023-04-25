@@ -1,0 +1,43 @@
+version: '3'
+services:
+    nifi:
+      image: apache/nifi:1.10.0
+      container_name: nifi
+      restart: always
+      networks: 
+        - dataflow
+      # ports:
+      #   - 8085:8080
+      #https://www.projectpro.io/recipes/read-data-from-local-and-store-it-into-mysql-table-nifi
+      volumes:    
+        - ./volume_nifi/database_repository:/opt/nifi/nifi-current/database_repository:rw
+        - ./volume_nifi/flowfile_repository:/opt/nifi/nifi-current/flowfile_repository:rw
+        - ./volume_nifi/content_repository:/opt/nifi/nifi-current/content_repository:rw
+        - ./volume_nifi/provenance_repository:/opt/nifi/nifi-current/provenance_repository:rw
+        - ./volume_nifi/conf:/opt/nifi/conf
+        - ./volume_nifi/state:/opt/nifi/nifi-current/state:rw
+        - ./volume_nifi/logs:/opt/nifi/nifi-current/logs:rw
+        - ./ojdbc8.jar:/opt/nifi/nifi-current/packages/ojdbc8.jar:ro
+        - ./mysql-connector-j-8.0.32.jar:/opt/nifi/nifi-current/packages/mysql-connector-j-8.0.32.jar:ro
+      environment:
+        TZ: America/Sao_Paulo
+        NIFI_WEB_HTTP_PORT: 8080        
+        NIFI_WEB_PROXY_HOST: wsl2
+      user: "${UID}:${GID}"
+      
+    nginx:
+      image: nginx
+      container_name: nginx
+      restart: always
+      depends_on: 
+        - nifi
+      ports: 
+        - 80:80
+      volumes:
+        - ./proxy/nginx.conf/:/etc/nginx/nginx.conf
+      networks:
+        - dataflow
+      
+networks: 
+  dataflow:
+    driver: bridge
