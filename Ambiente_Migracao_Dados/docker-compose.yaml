@@ -22,7 +22,7 @@ services:
       environment:
         TZ: America/Sao_Paulo
         NIFI_WEB_HTTP_PORT: 8080        
-        NIFI_WEB_PROXY_HOST: wsl2
+        NIFI_WEB_PROXY_HOST: localhost
       user: "${UID}:${GID}"
       
     nginx:
