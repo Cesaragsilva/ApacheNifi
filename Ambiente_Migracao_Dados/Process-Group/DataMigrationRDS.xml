@@ -11147,7 +11147,7 @@ WHERE usuarioid = '${usuarioid}'
         <value>UPDATE comentarios
 SET comentario = '${comentario}'
 WHERE usuarioid = '${usuarioid}' 
-  AND data = '${data}'
+  AND data = CASE WHEN '${data}' = 'null' THEN NULL ELSE '${data}' END
   AND encontroid = '${encontroid}'</value>
     </entry>
     <entry>
@@ -11535,7 +11535,7 @@ WHERE usuarioid = '${usuarioid}'
     </entry>
     <entry>
         <key>Replacement Value</key>
-        <value>INSERT INTO usuarioavaliacao 
+        <value>INSERT INTO comentarios 
 	(
 		usuarioid, 
 		comentario, 
@@ -11546,7 +11546,7 @@ SELECT
 	'${usuarioid}' AS usuarioid, 
 	'${comentario}' AS comentario,
 	'${encontroid}' AS encontroid,
-	'${data}' AS data
+	CASE WHEN '${data}' = 'null' THEN NULL ELSE '${data}' END AS data
 FROM 
 	(
 		SELECT 1 as n
@@ -11556,9 +11556,10 @@ WHERE NOT EXISTS
 		SELECT 
 			1 
 		FROM 
-			usuarioavaliacao newtable 
+			comentarios newtable 
 		WHERE 
-			newtable.usuarioid = '${usuarioid}' AND newtable.encontroid = '${encontroid}' AND newtable.data = '${data}'
+			newtable.usuarioid = '${usuarioid}' AND newtable.encontroid = '${encontroid}' AND 
+			newtable.data = CASE WHEN '${data}' = 'null' THEN NULL ELSE '${data}' END
 	)</value>
     </entry>
     <entry>
@@ -21717,7 +21718,7 @@ SELECT
 	'${avaliacaoid}' AS avaliacaoid,
 	'${encontroid}' AS encontroid,
 	'${resposta}' AS resposta,
-	'${data}' AS data 
+	CASE WHEN '${data}' = 'null' THEN NULL ELSE '${data}' END AS data
 FROM 
 	(
 		SELECT 1 as n
@@ -68945,7 +68946,7 @@ SET texto = '${texto}',
 WHERE encontroid = '${encontroid}' 
   AND usuarioautorid = '${usuarioautorid}'
   AND usuariodestinoid = '${usuariodestinoid}'
-  AND data = '${data}'</value>
+  AND data = CASE WHEN '${data}' = 'null' THEN NULL ELSE '${data}' END</value>
     </entry>
     <entry>
         <key>Character Set</key>
@@ -70855,7 +70856,7 @@ SELECT
 	'${encontroid}' AS encontroid, 
 	'${usuarioautorid}' AS usuarioautorid,
 	'${usuariodestinoid}' AS usuariodestinoid,
-	'${data}' AS data,
+	CASE WHEN '${data}' = 'null' THEN NULL ELSE '${data}' END AS data,
 	'${texto}' AS texto, 
 	'${autorexterno}' AS autorexterno
 FROM 
@@ -70872,7 +70873,7 @@ WHERE NOT EXISTS
 			newtable.encontroid = '${encontroid}' 
 			  AND newtable.usuarioautorid = '${usuarioautorid}'
 			  AND newtable.usuariodestinoid = '${usuariodestinoid}'
-			  AND newtable.data = '${data}'
+			  AND newtable.data = CASE WHEN '${data}' = 'null' THEN NULL ELSE '${data}' END
 	)</value>
     </entry>
     <entry>
@@ -83281,7 +83282,7 @@ WHERE NOT EXISTS
                     <id>fdc85e1f-0b3e-3c0d-0000-000000000000</id>
                     <parentGroupId>81b82e5a-57e3-3cff-0000-000000000000</parentGroupId>
                     <position>
-                        <x>-40.0</x>
+                        <x>-48.0</x>
                         <y>0.0</y>
                     </position>
                     <comments></comments>
@@ -84906,7 +84907,7 @@ SELECT
 	'${titulo}' AS titulo, 
 	'${descricao}' AS descricao, 
 	'${codigo}' AS codigo, 
-	'${data}' AS data, 
+	CASE WHEN '${data}' = 'null' THEN NULL ELSE '${data}' END AS data, 
 	'${empresaid}' AS empresaid, 
 	'${turmaid}' AS turmaid, 
 	'${listaliberada}' AS listaliberada, 
@@ -86627,5 +86628,5 @@ WHERE empresaid = '${empresaid}'
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>05/22/2023 20:39:55 BRT</timestamp>
+    <timestamp>05/25/2023 07:02:01 BRT</timestamp>
 </template>
