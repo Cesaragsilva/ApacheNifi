@@ -8,7 +8,6 @@ services:
         - dataflow
       # ports:
       #   - 8085:8080
-      #https://www.projectpro.io/recipes/read-data-from-local-and-store-it-into-mysql-table-nifi
       volumes:    
         - ./volume_nifi/database_repository:/opt/nifi/nifi-current/database_repository:rw
         - ./volume_nifi/flowfile_repository:/opt/nifi/nifi-current/flowfile_repository:rw
