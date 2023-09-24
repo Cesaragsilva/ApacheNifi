@@ -19,10 +19,11 @@ services:
         - ./volume_nifi/logs:/opt/nifi/nifi-current/logs:rw
         - ./ojdbc8.jar:/opt/nifi/nifi-current/packages/ojdbc8.jar:ro
         - ./mysql-connector-j-8.0.32.jar:/opt/nifi/nifi-current/packages/mysql-connector-j-8.0.32.jar:ro
+        - ./mariadb-java-client-3.0.7.jar:/opt/nifi/nifi-current/packages/mariadb-java-client-3.0.7.jar:ro
       environment:
         TZ: America/Sao_Paulo
         NIFI_WEB_HTTP_PORT: 8080        
-        NIFI_WEB_PROXY_HOST: wsl2
+        NIFI_WEB_PROXY_HOST: localhost
       user: "${UID}:${GID}"
       
     nginx:
